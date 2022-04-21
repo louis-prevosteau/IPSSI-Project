@@ -8,6 +8,7 @@ use App\Models\Product as ModelsProduct;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class Product extends Controller
 {
@@ -24,77 +25,93 @@ class Product extends Controller
     }
 
     public function create(Request $request) {
-        try {
-            $this->validate(
-                $request,
-                [
-                    'name' => 'required',
-                    'description' => 'required',
-                    'price' => 'required',
-                    'image' => 'required'
-                ]
-            );
-            $product = new ModelsProduct();
-            $product->name = $request->name;
-            $product->description = $request->description;
-            $product->price = $request->price;
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->storeAs('products', 'prod'.$product->id.'.'.$request->file('image')->extension(), 'public');
-                $product->image = $path;
-                $product->save();
+        if (Gate::allows('admin-access')) {
+            try {
+                $this->validate(
+                    $request,
+                    [
+                        'name' => 'required',
+                        'description' => 'required',
+                        'price' => 'required',
+                        'image' => 'required'
+                    ]
+                );
+                $product = new ModelsProduct();
+                $product->name = $request->name;
+                $product->description = $request->description;
+                $product->price = $request->price;
+                if ($request->hasFile('image')) {
+                    $path = $request->file('image')->storeAs('products', 'prod'.$product->id.'.'.$request->file('image')->extension(), 'public');
+                    $product->image = $path;
+                    $product->save();
+                }
+                $data = new ResourcesProduct($product);
+                return response()->json($data);
+            } catch (Exception $e) {
+                return response()->json($e->getMessage(), $e->getCode());
             }
-            $data = new ResourcesProduct($product);
-            return response()->json($data);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), $e->getCode());
+        } else {
+            abort(403);
         }
     }
 
     public function update(Request $request, $id) {
-        try {
-            $product = ModelsProduct::find($id);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), $e->getCode());
-        }
-        try {
-            $this->validate(
-                $request,
-                [
-                    'name' => 'required',
-                    'description' => 'required',
-                    'price' => 'required',
-                    'image' => 'required'
-                ]
-            );
-            $product->name = $request->name;
-            $product->description = $request->description;
-            $product->price = $request->price;
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->storeAs('products', 'prod'.$product->id.'.'.$request->file('image')->extension(), 'public');
-                $product->image = $path;
-                $product->save();
+        if (Gate::allows('admin-access')) {
+            try {
+                $product = ModelsProduct::find($id);
+            } catch (Exception $e) {
+                return response()->json($e->getMessage(), $e->getCode());
             }
-            $data = new ResourcesProduct($product);
-            return response()->json($data);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), $e->getCode());
+            try {
+                $this->validate(
+                    $request,
+                    [
+                        'name' => 'required',
+                        'description' => 'required',
+                        'price' => 'required',
+                        'image' => 'required'
+                    ]
+                );
+                $product->name = $request->name;
+                $product->description = $request->description;
+                $product->price = $request->price;
+                if ($request->hasFile('image')) {
+                    $path = $request->file('image')->storeAs('products', 'prod'.$product->id.'.'.$request->file('image')->extension(), 'public');
+                    $product->image = $path;
+                    $product->save();
+                }
+                $data = new ResourcesProduct($product);
+                return response()->json($data);
+            } catch (Exception $e) {
+                return response()->json($e->getMessage(), $e->getCode());
+            }
+        } else {
+            abort(403);
         }
     }
 
     public function delete($id) {
-        $product = ModelsProduct::find($id);
-        $product->delete();
+        if (Gate::allows('admin-access')) {
+            $product = ModelsProduct::find($id);
+            $product->delete();
+        } else {
+            abort(403);
+        }
     }
 
     public function addCategory($productId, $categoryId) {
-        try {
-            $product = ModelsProduct::find($productId);
-            $category = Category::find($categoryId);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), $e->getCode());
+        if (Gate::allows('admin-access')) {
+            try {
+                $product = ModelsProduct::find($productId);
+                $category = Category::find($categoryId);
+            } catch (Exception $e) {
+                return response()->json($e->getMessage(), $e->getCode());
+            }
+            DB::table('product_has_category')->insert(['productId' => $productId, 'categoryId' => $categoryId]);
+            return response()->json("Add category successfully");
+        } else {
+            abort(403);
         }
-        DB::table('product_has_category')->insert(['productId' => $productId, 'categoryId' => $categoryId]);
-        return response()->json("Add category successfully");
     }
 
     public function getProductByCategory($categoryId) {
