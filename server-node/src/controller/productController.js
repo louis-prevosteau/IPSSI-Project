@@ -1,19 +1,29 @@
-const productModel = require("../models/products");
+const productModel = require("../models/products"),
+      userModel = require("../models/users");
 const app = require("../../app");
 
 exports.test = (req, res, next) => {
-  res.json({
-    msg: "product test",
-  });
+    res.json({
+        msg: "product test",
+    });
 };
 
 exports.insertProduct = (req, res, next) => {
-  const newProduct = new productModel(req.body);
-  newProduct.save();
-  res.status(200).send(newProduct);
+    //if (user.accountType != "user") {
+    const newProduct = new productModel();
+    newProduct.name = req.body.name
+    if (req.file) {
+        newProduct.picture = req.file.path
+        newProduct.save();
+    }
+    newProduct.save();
+    res.status(200).send({ 
+        newProduct: newProduct,
+        message: "success" 
+    })
 };
 
-exports.editAProduct = (req, res, next) => {
+exports.editAProduct = (req, res) => {
   const modelId = req.params.idProduct;
   const newName = req.body.name;
 

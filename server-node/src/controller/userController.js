@@ -1,6 +1,7 @@
 const 
     jwt = require('jsonwebtoken'),
     userModel = require("../models/users"),
+    validationHandler = require("../validations/validationHandler"),
     { capitalize } = require('../helpers')
     require("dotenv").config();
 
@@ -53,6 +54,37 @@ exports.register = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
+        next(err)
+    }
+}
+
+// login controller
+exports.login = async (req, res, next) => {
+    try {
+        validationHandler(req);
+
+        const email = req.body.email
+        const password = req.body.password
+
+        const user = await userModel.findOne({ email }).select("+password")
+        if (!user) {
+            const error = new Error("Wrong Email")
+            error.statusCode = 401;
+            throw error;
+        }
+
+        const validPassword = await user.validPassword(password)
+        if (!validPassword) {
+            const error = new Error("Wrong Password")
+            error.statusCode = 401;
+            throw error;
+        }
+
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY)
+        res.cookie("tok", token, { expire: new Date() + 99999 })
+
+        return res.send({ user, token })
+    } catch (err) {
         next(err)
     }
 }

@@ -40,7 +40,7 @@ app.use(
 );
 
 // Added route for product methods
-app.use("/user/", userRoute)
+app.use("/user", userRoute)
 app.use("/product", productRoute);
 
 /*
