@@ -3,17 +3,17 @@ import AccountBar from "../common/AccountBar";
 import NavigationBar from "../common/NavigationBar";
 import Footer from "../common/Footer";
 
-class Home extends React.Component {
+class Login extends React.Component {
   render() {
     return (
       <div>
         <AccountBar />
         <NavigationBar />
-        <p>Home</p>
+        <p>Login</p>
         <Footer />
       </div>
     );
   }
 }
 
-export default Home;
+export default Login;

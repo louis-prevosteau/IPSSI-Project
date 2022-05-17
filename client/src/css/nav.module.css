@@ -1,57 +1,110 @@
-.navBar{
-    background-color: #282c34;
-    height: 200px;
-    font-family: "ShareTech-Regular";
+.accountBar {
+  background-color: #002e57;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.navBrand {
-    color: white !important ;
-    font-size: 48px;
-    font-weight: bold;
-    text-decoration: underline;
-    margin-right: 30px;
-    margin-left: 30px;
+.accountBarInscription {
+  margin-right: 5vw;
 }
 
-.navLogo {
-    border: 3px solid white;
-    margin-right: 30px;
-    margin-left: 30px;
+.accountBarConnection,
+.accountBarInscription {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
 }
 
-.nav{
-    display: flex;
+.accountBarConnection:hover,
+.accountBarInscription:hover {
+  text-decoration: underline;
+}
+
+.navBar {
+  background-color: #004079;
+  height: 7vw;
+  display: flex;
+  align-items: center;
+}
+
+.navBrand,
+.nav {
+  margin-left: 5vw;
+}
+
+.nav {
+  justify-content: center;
 }
 
 .navLink {
-    font-size: 24px;
-    color: white !important ;
-    margin-right: 10px;
-    margin-left: 10px;
-    float: right;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  border-bottom: 3px solid transparent;
+  font-family: Barlow;
+  font-size: 24px;
+  color: white !important ;
+  margin-right: 3vw;
+  margin-left: 3vw;
+  text-decoration: none;
 }
 
 .navLink:hover {
-    border-bottom: 3px solid white;
+  border-bottom: 1px solid white;
 }
 
 .navLink.active {
-    border-bottom: 3px solid red;
-  }
-
-.logoutLogo{
-    color: white;
-    font-size: 2em;
-    padding-right: 10px;
-    padding-left: 10px;
+  border-bottom: 1px solid white;
 }
 
-.logoutLogo:hover{
-    border: 2px solid white;
-    border-radius: 30px;
-    cursor: pointer;
+.header {
+  background-color: #002e57;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.header h1 {
+  font-size: 48px;
+  line-height: 1vw;
+  font-family: Barlow;
+}
+
+.header h2 {
+  font-size: 36px;
+  font-family: Barlow;
+}
+
+.footer {
+  font-family: Montserrat;
+  background-color: #002e57;
+  text-align: center;
+  color: white;
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer img {
+  float: inline-end;
+  margin-right: 2vw;
+  margin-top: -4vw;
+}
+
+.legalmentions:hover {
+  text-decoration: underline;
+}
+
+.logoutLogo {
+  color: white;
+  font-size: 2em;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.logoutLogo:hover {
+  border: 2px solid white;
+  border-radius: 30px;
+  cursor: pointer;
 }
