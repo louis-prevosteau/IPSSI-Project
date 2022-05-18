@@ -19,6 +19,7 @@ const url =
 //const for routes
 const userRoute = require("./src/routes/userRoute");
 const productRoute = require("./src/routes/productRoute");
+const commentaryRoute = require("./src/routes/commentaryRoute")
 
 /*
     Connect to mongoose, framework of MongoDB
@@ -40,8 +41,9 @@ app.use(
 );
 
 // Added route for product methods
-app.use("/user", userRoute)
+app.use("/user", userRoute);
 app.use("/product", productRoute);
+app.use("/commentary", commentaryRoute);
 
 /*
   Added header for cors origin
