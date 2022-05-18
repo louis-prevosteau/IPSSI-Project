@@ -7,15 +7,16 @@ const {
     editAProduct,
     getProductsFiltered,
     deleteAProduct,
-    selectAProduct 
+    selectAProduct, 
+    selectAllProducts
 } = require('../controller/productController')
 const folderName = require('../middleware/multer')
 
 router.get('/test', test );
-
+router.get('/selectAll', selectAllProducts)
 router.get('/:idProduct/select', selectAProduct);
 router.put('/insert', folderName(__dirname + "/../../uploads").single("file"), insertProduct);
-router.post('/:idProduct/edit', editAProduct );
+router.put('/:idProduct/edit', folderName(__dirname + "/../../uploads").single("file"), editAProduct );
 router.get('/filtered', getProductsFiltered );
 router.delete('/:idProduct/delete', deleteAProduct);
 

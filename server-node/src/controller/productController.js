@@ -4,6 +4,10 @@ const app = require("../../app");
 
 const path = require('path')
 
+const fs = require('fs')
+const { promisify } = require('util')
+const unlinkAsync = promisify(fs.unlink)
+
 exports.test = (req, res, next) => {
     res.json({
         msg: "product test",
@@ -41,22 +45,12 @@ exports.selectAProduct = (req, res, next) => {
     });
 };
 
-exports.editAProduct = (req, res) => {
-  const modelId = req.params.idProduct;
-  const newName = req.body.name;
-
+exports.selectAllProducts = (req, res) => {
   productModel
-    .findById(modelId)
+    .find()
     .then((model) => {
-      return Object.assign(model, { title: newName });
-    })
-    .then((model) => {
-      return model.save();
-    })
-    .then((updatedModel) => {
       res.json({
-        msg: "model updated",
-        updatedModel,
+        model: model,
       });
     })
     .catch((err) => {
@@ -64,18 +58,49 @@ exports.editAProduct = (req, res) => {
     });
 };
 
+exports.editAProduct = (req, res) => {
+    const modelId = req.params.idProduct;
+    const productName = req.body.name;
+    const productDescription = req.body.description
+    const productPrice = req.body.price
+
+    console.log(req.body)
+    productModel
+    .findById(modelId)
+    .then((model) => {
+        if (req.file) {
+            unlinkAsync(model.picture)
+            return Object.assign(model, { name: productName, description: productDescription, productPrice: productPrice, picture: req.file.path });
+        }
+        return Object.assign(model, { name: productName, description: productDescription, productPrice: productPrice  });
+    })
+    .then((model) => {
+        return model.save();
+    })
+    .then((updatedModel) => {
+        res.status(200).send({ 
+            updatedModel: updatedModel,
+            message: "success" 
+        })
+    })
+    .catch((err) => {
+        res.send(err);
+    });
+};
+
 exports.deleteAProduct = (req, res, next) => {
     const modelId = req.params.idProduct;
 
-    productModel
-    .findByIdAndRemove(modelId)
+    productModel.findByIdAndDelete(modelId)
     .then((model) => {
-    res.json({
-        msg: "Produit supprimé !",
-        deleteModel,
-        });      })
+		unlinkAsync(model.picture)
+		res.json({
+			msg: "Produit supprimé !",
+			deleteModel: model,
+			});      
+		})
     .catch((err) => {
-    res.send(err);
+    	res.send(err);
     });
 };
 

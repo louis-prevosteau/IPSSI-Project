@@ -34,9 +34,9 @@ mongoose
 const app = express();
 app.use(express.json());
 app.use(
-  cors({
-    origin: true,
-  })
+	cors({
+		origin: true,
+	})
 );
 
 // Added route for product methods
