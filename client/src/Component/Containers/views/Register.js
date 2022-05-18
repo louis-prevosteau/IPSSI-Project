@@ -18,6 +18,8 @@ const Register = () => {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
 
+  let history = useHistory()
+
   const register = () => {
     if (firstName.length == 0 || email.length == 0 || password.length == 0) {
       alert("Empty form");
@@ -40,7 +42,7 @@ const Register = () => {
       .post("http://127.0.0.1:3000/user/register", data)
       .then((response) => {
         let obj = response.data;
-        /*history.push("/Login");*/
+        history.push("/Login");
         console.log(obj);
       })
       .catch((error) => {
@@ -53,7 +55,7 @@ const Register = () => {
       <AccountBar />
       <NavigationBar />
       <p>Register</p>
-      <form>
+      <form onSubmit={e => {e.preventDefault();}}>
         <input
           type="text"
           placeholder="Firstname"
