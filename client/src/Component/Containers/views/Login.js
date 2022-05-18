@@ -28,6 +28,7 @@ const Login = () => {
       .post("http://127.0.0.1:3000/user/login", data)
       .then((response) => {
         let obj = response.data;
+        localStorage.setItem("email", email);
         history.push("/");
         console.log(obj);
       })
@@ -41,7 +42,11 @@ const Login = () => {
       <AccountBar />
       <NavigationBar />
       <p>Login</p>
-      <form onSubmit={e => {e.preventDefault();}}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <input
           type="email"
           placeholder="Email"
