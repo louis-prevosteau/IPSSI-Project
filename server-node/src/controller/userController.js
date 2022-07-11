@@ -88,3 +88,27 @@ exports.login = async (req, res, next) => {
         next(err)
     }
 }
+
+// login controller
+exports.updateProfile = async (req, res, next) => {
+    try {
+        //validationHeader(req)
+        console.log("updateProfile:" + req.headers.authorization)
+        /*
+        validationHandler(req);
+
+        const user = await userModel.findOne({ email })
+        if (!user) {
+            const error = new Error("Wrong token")
+            error.statusCode = 401;
+            throw error;
+        }
+
+        return res.send({ user })
+        */
+       return res.send({ test: "test" })
+    } catch (err) {
+        next(err)
+    }
+}
+

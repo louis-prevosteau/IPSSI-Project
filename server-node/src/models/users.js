@@ -10,16 +10,17 @@ const UserSchema = mongoose.Schema({
     accountType: {type: String, required: false, default: "user"},
     picture: {
         data: Buffer,
-        contentType: String
+        contentType: String,
+        required: false
     },
     created_at: {type: Date, required: true, default: Date.now},
     updated_at: {type: Date},
     phoneNumber: {type: String, required: false, unique: true, minLength: 10, maxLength: 16},
-    address: {type: String, required: true, unique: false, minLength: 10, maxLength: 200},
-    country: {type: String, required: true, default: "France", minLength: 5, maxLength: 100},
-    postalCode: {type: String, required: true, min: 5, max: 5},
-    city: {type: String, required: true, minLength: 3, maxLength: 50},
-    codeCountry: {type: String, required: true, default: "FR"},
+    address: {type: String, required: false, unique: false, minLength: 10, maxLength: 200},
+    country: {type: String, required: false, default: "France", minLength: 5, maxLength: 100},
+    postalCode: {type: String, required: false, min: 5, max: 5},
+    city: {type: String, required: false, minLength: 3, maxLength: 50},
+    codeCountry: {type: String, required: false, default: "FR"},
     birthDay: {type: Date, required: false},
     creditCard: {type: String, required: false, min: 16, max: 20},
     resetPasswordLink: {
