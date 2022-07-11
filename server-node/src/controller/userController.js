@@ -22,10 +22,10 @@ exports.register = async (req, res, next) => {
         user.lastName = req.body.lastName.toUpperCase();
         user.email = req.body.email
         user.password = await user.encryptPassword(req.body.password)
-        user.phoneNumber = req.body.phoneNumber // TODO: S'assurer que c'est une numéron de téléphone valable
-        user.city = req.body.city
-        user.postalCode = req.body.postalCode
-        user.address = req.body.address
+        //user.phoneNumber = req.body.phoneNumber // TODO: S'assurer que c'est une numéron de téléphone valable
+        //user.city = req.body.city
+        //user.postalCode = req.body.postalCode
+        //user.address = req.body.address
 
         if (req.body.country && req.body.country !== "") {
             user.country = capitalize(req.body.country)
