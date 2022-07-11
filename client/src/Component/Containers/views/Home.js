@@ -38,7 +38,6 @@ function Home() {
       <div>
         <AccountBar />
         <NavigationBar />
-<<<<<<< HEAD
         <h3>Bienvenue sur notre site internet !</h3>
 
           <DemoCarousel />
@@ -50,23 +49,6 @@ function Home() {
         </div>
 
         <Link to={"/Shop"} className={"globalButton"} style={{padding: "1%"}}>Aller à la boutique ! <BsFillBasket2Fill /></Link>
-=======
-        <p>Home</p>
-
-        <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-      >
-        {Array.from(gridArray).map((_, index) => (
-          <Grid item xs={2} key={index}>
-            <Item>{gridArray[index]}</Item>
-          </Grid>
-        ))}
-        <button
-          onClick={handleClick}
-        >Click</button>
-      </Grid>
->>>>>>> 40505fd41d7c97e986f65528d181597d532b7a47
 
         <Footer />
       </div>
