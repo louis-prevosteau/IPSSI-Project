@@ -5,9 +5,237 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #EAEEFF;
+  
+  text-align:center;
+  display:grid;
+  grid-template-rows: auto 1fr auto;
+  min-height:100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+
+
+.globalForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formfield {
+  border-radius: 15px;
+  border: 1px solid black;
+  width: 30%;
+  height: 5vh;
+  margin-bottom: 3vh;
+  padding-left: 1vw;
+}
+
+.formfield::placeholder {
+  font-size: 1.2em;
+  color:#032849;
+}
+
+.globalButton {
+  font-family: 'BoogalooRegular', cursive;
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  background-color: #004079;
+  color: white;
+  width: 25%;
+  height: 5vh;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.globalButton:hover {
+  background-color:white;
+  border: 2px solid #004079;
+  color: #004079;
+}
+
+.globalRedButton {
+  font-family: 'BoogalooRegular', cursive;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #D93333;
+  background-color: #D93333;
+  color: white;
+  width: 25%;
+  margin-top: 3vh;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.globalRedButton:hover {
+  background-color:white;
+  border: 2px solid #D93333;
+  color: #D93333;
+}
+
+.globalGreenButton {
+  font-family: 'BoogalooRegular', cursive;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #00a558;
+  background-color: #00a558;
+  color: white;
+  width: 25%;
+  margin-top: 3vh;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.globalGreenButton:hover {
+  background-color:white;
+  border: 2px solid #00a558;
+  color: #00a558;
+}
+
+.globalGreyButton {
+  font-family: 'BoogalooRegular', cursive;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #C4C4C4;
+  background-color: #C4C4C4;
+  color: white;
+  width: 25%;
+  margin-top: 3vh;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  text-transform: uppercase;
+  font-size: 1em;
+}
+
+.globalGreyButton:hover {
+  background-color:white;
+  border: 2px solid #C4C4C4;
+  color: #C4C4C4;
+}
+
+.lostPasswordButton {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.lostPasswordButton:hover {
+  text-decoration: underline;
+}
+
+.hypertextButton {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.hypertextButton:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+
+/*.activeStyle {
+  text-decoration: underline;
+}
+
+.nonActiveStyle {
+  text-decoration: none;
+}*/
+
+.logRegisterOpts {
+  display: flex;
+  list-style-position: inside;
+  padding-left: 0;
+  list-style-type: none;
+  justify-content: space-evenly;
+  font-family: 'BoogalooRegular', cursive;
+  font-size: 1.3em;
+  color: #004079;
+}
+
+.font-link {
+  font-family: 'BoogalooRegular', cursive;
+}
+
+.adminCataloguetr:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.productCounter {
+  width: 70%;
+  margin: auto;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  padding: 5vh;
+  border-radius: 10px;
+  background-color: #004079;
+  text-align: left;
+  color: white;
+}
+
+h3 {
+  font-family: 'BoogalooRegular', cursive;
+  font-size: 2em;
+  color: #004079;
+}
+
+.productCard {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: white;
+  width: 18rem;
+  font-family: 'BoogalooRegular', cursive;
+  font-size: 1.3em;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-right: 1%;
+  padding-left:1%;
+  margin: 1%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.productCard:hover {
+  transform: scale(0.95);
+}
+
+.productCard button {
+width: 50%; 
+}
+
+
+.company-logo {
+  
+  width: 120px;
+  height: 120px;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 
+  100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes spin { 
+  100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes spin { 
+  100% { 
+      -webkit-transform: rotate(360deg); 
+      transform:rotate(360deg); 
+  } 
 }

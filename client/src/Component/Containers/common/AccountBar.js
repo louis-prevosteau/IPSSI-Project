@@ -1,37 +1,37 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
+
+import { FiLogOut } from 'react-icons/fi';
+
 
 import styles from "../../../css/nav.module.css";
 
 export default function AccountBar() {
   let button = (button) => {
-    const isLoggedIn = localStorage.getItem("email");
+    const isLoggedIn = localStorage.getItem("firstName");
     if (isLoggedIn) {
-      return <button>{localStorage.getItem("email")}</button>;
+      return <button>{localStorage.getItem("firstName")}</button>;
     }
     return (
-      <button className={styles.accountBarConnection} href="login">
-        se connecter
-      </button>
+      <Link to="/login" className={styles.accountBarConnection}>se connecter</Link>
     );
   };
 
   let logout = (logoutButton) => {
-    const isLoggedIn = localStorage.getItem("email");
+    const isLoggedIn = localStorage.getItem("firstName");
     if (isLoggedIn) {
-      return <button onClick={loginAction}>se déconnecter</button>;
+      <Link onClick={loginAction} className={styles.accountBarConnection}>se déconnecter  <FiLogOut /></Link>
     }
     return (
-      <button className={styles.accountBarConnection} href="login">
-        s'inscrire
-      </button>
+      
+      <Link to="/register" className={styles.accountBarConnection}>s'inscrire</Link>
     );
   };
 
   const loginAction = () => {
-    console.log("Hello");
-    localStorage.removeItem("email");
+    localStorage.removeItem("firstName");
     window.location.reload(false);
   };
 

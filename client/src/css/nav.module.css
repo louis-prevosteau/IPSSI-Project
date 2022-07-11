@@ -32,6 +32,7 @@
 .navBrand,
 .nav {
   margin-left: 5vw;
+  animation: rotation 2s infinite linear;
 }
 
 .nav {
@@ -39,12 +40,23 @@
 }
 
 .navLink {
+  font-family: 'BoogalooRegular', cursive;
+  font-size: 24px;
+  color: white !important ;
+  margin-right: 3vw;
+  margin-left: 3vw;
+  text-decoration: none;
+}
+
+.navLinkActive{
   font-family: Barlow;
   font-size: 24px;
   color: white !important ;
   margin-right: 3vw;
   margin-left: 3vw;
   text-decoration: none;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .navLink:hover {
@@ -81,9 +93,10 @@
   color: white;
   padding-top: 2vw;
   padding-bottom: 2vw;
-  position: absolute;
-  bottom: 0;
   width: 100%;
+  margin-top: 5%;
+  bottom: 0;
+ 
 }
 
 .footer img {

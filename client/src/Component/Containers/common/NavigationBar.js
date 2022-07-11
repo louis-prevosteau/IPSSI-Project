@@ -5,36 +5,80 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import signOutAlt from "@iconify/icons-fa-solid/sign-out-alt";
 
+import { Link, NavLink } from "react-router-dom";
+
 import logo from "../../../../src/assets/img/logo.png";
+
+import { FaUserAlt } from 'react-icons/fa';
+
 
 import styles from "../../../css/nav.module.css";
 
 const LogoutIcon = <Icon icon={signOutAlt} />;
 
+
 export default function NavigationBar() {
+
   const logout = () => {};
+
+  let content = "";
+
+  let admin = true;
+
+  if (admin) {
+
+    content = <Navbar className={styles.navBar}>
+                <Navbar.Brand className={styles.navBrand} to="Home">
+                  <Link to='/'><img className={"company-logo"} src={logo} alt="" width="100vw" height="100vw" /></Link>
+                </Navbar.Brand>
+                {/*<Navbar.Toggle />*/}
+                {/*<Navbar.Collapse>*/}
+                <Nav className={styles.nav}>
+                  <NavLink className={styles.navLink} to="Home"> 
+                    Accueil
+                  </NavLink>
+                  <NavLink className={styles.navLink} to="AdminCatalogue">
+                    Catalogue
+                  </NavLink>
+                  <NavLink className={styles.navLink} to="AddProduct">
+                    Créer un produit
+                  </NavLink>
+                  <NavLink className={styles.navLink} to="User">
+                    <FaUserAlt style = {{marginRight: "10px"}}/>Mon compte
+                  </NavLink>
+                </Nav>
+                {/*</Navbar.Collapse>*/}
+              </Navbar>;
+    
+  } else {
+
+    content = <Navbar className={styles.navBar}>
+                <Navbar.Brand className={styles.navBrand} to="Home">
+                  <img src={logo} width="100vw" height="100vw" />
+                </Navbar.Brand>
+                {/*<Navbar.Toggle />*/}
+                {/*<Navbar.Collapse>*/}
+                <Nav className={styles.nav}>
+                  <NavLink className={styles.navLink} to="Home"> 
+                    Accueil
+                  </NavLink>
+                  <NavLink className={styles.navLink} to="Shop">
+                    Boutique
+                  </NavLink>
+                  <NavLink className={styles.navLink} to="Cart">
+                    Panier
+                  </NavLink>
+                  <NavLink className={styles.navLink} to="User">
+                    <FaUserAlt style = {{marginRight: "10px"}}/>Mon compte
+                  </NavLink>
+                </Nav>
+                {/*</Navbar.Collapse>*/}
+              </Navbar>
+      }
 
   return (
     <>
-      <Navbar className={styles.navBar}>
-        <Navbar.Brand className={styles.navBrand} href="Home">
-          <img src={logo} width="100vw" height="100vw" />
-        </Navbar.Brand>
-        {/*<Navbar.Toggle />*/}
-        {/*<Navbar.Collapse>*/}
-        <Nav className={styles.nav}>
-          <Nav.Link className={styles.navLink} href="Home">
-            Accueil
-          </Nav.Link>
-          <Nav.Link className={styles.navLink} href="Shop">
-            Boutique
-          </Nav.Link>
-          <Nav.Link className={styles.navLink} href="Cart">
-            Panier
-          </Nav.Link>
-        </Nav>
-        {/*</Navbar.Collapse>*/}
-      </Navbar>
+     {content}
 
       <div className={styles.header}>
         <h1>SPAZIOGAMES</h1>
@@ -43,3 +87,4 @@ export default function NavigationBar() {
     </>
   );
 }
+
