@@ -23,9 +23,10 @@ exports.selectAllCategories = (req, res, next) => {
     CategoryModel
       .find()
       .then((model) => {
-        res.json({
-          model: model,
-        });
+          res.status(200).send({
+              listOfCategories: model,
+              message: "success"
+          })
       })
       .catch((err) => {
         res.send(err);
