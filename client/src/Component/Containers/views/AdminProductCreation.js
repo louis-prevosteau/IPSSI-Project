@@ -18,8 +18,10 @@ const AdminProductCreation = () => {
   const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productPicture, setProductPicture] = useState([]);
-  const [productCategory, setProductCategory] = useState([]);
-  const [listCategory, setListCategory] = useState([]);
+  const [selectedProductCategory, setSelectedProductCategory] = useState("");
+  const [categoriesId, setCategoriesId] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const [listCategory, setListCategory] = useState({});
 
   useEffect(() => {   
     axios
@@ -27,17 +29,18 @@ const AdminProductCreation = () => {
     .then((response) => {
 
       setListCategory(response.data.listOfCategories);
-      console.log(response.data)
-      console.log(response.data.listOfCategories[0].name);
-      console.log('alert' + listCategory)
 
-      listCategory.forEach(category => {
-        console.log(category)
-        for (const [key, value] of Object.entries(category)){
-        console.log( `hello ${key}: ${value}`
-        )};
-      });
-      
+      let categoryValuesId = []
+      console.log(".")
+      for (const category in listCategory) {
+        for (const [key, value] of Object.entries(listCategory[category])){
+          if (key == "_id") {
+            console.log(response.data)
+            categoryValuesId.push(value)
+          }
+        }
+      }
+      setCategoriesId(categoryValuesId)
     })
     .catch((error) => {
       alert(error);
@@ -45,17 +48,26 @@ const AdminProductCreation = () => {
 
     
   }, []);
-
   
   const showCategories = () => {
-
+    let categoryValues = []
+    for (const category in listCategory) {
+      for (const [key, value] of Object.entries(listCategory[category])){
+        if (key == "name") {
+          categoryValues.push(value)
+        }
+      }
+    }
     
-   
-    let categoryValues = ["jeux de société","jeux de rôle","jeux de dés"],
-        MakeItem = function(X) {
+    let MakeItem = function(X) {
             return <option>{X}</option>;
         };
-    return <select className={"formfield"} value={productCategory} onChange={(e) => {setProductCategory(e.target.value);}}>{categoryValues.map(MakeItem)}</select>;
+    return <select className={"formfield"} value={selectedProductCategory} onChange={(e) => {
+      setSelectedProductCategory(e.target.value);
+      console.log(categoriesId)
+      console.log("selected id: " + categoriesId[e.target.selectedIndex])
+      setSelectedCategoryId(categoriesId[e.target.selectedIndex])
+    }}>{categoryValues.map(MakeItem)}</select>;
   }
 
   let history = useHistory();
@@ -72,10 +84,13 @@ const AdminProductCreation = () => {
       return;
     }
 
+    console.log("category id:" + selectedCategoryId)
+
     let data = {
       name: productTitle,
       price: productPrice,
       description: productDescription,
+      id_category: selectedCategoryId
       /*file: productPicture,
       category: productCategory,*/
     };
