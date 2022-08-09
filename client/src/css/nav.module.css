@@ -32,7 +32,6 @@
 .navBrand,
 .nav {
   margin-left: 5vw;
-  animation: rotation 2s infinite linear;
 }
 
 .nav {
@@ -41,7 +40,7 @@
 
 .navLink {
   font-family: 'BoogalooRegular', cursive;
-  font-size: 24px;
+  font-size: 1.5vw;
   color: white !important ;
   margin-right: 3vw;
   margin-left: 3vw;
@@ -100,7 +99,7 @@
 }
 
 .footer img {
-  float: inline-end;
+  float: right;
   margin-right: 2vw;
   margin-top: -4vw;
 }

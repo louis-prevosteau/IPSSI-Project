@@ -13,16 +13,11 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [country, setCountry] = useState("");
 
   let history = useHistory()
 
   const register = () => {
-    if (firstName.length == 0 || email.length == 0 || password.length == 0) {
+    if (firstName.length === 0 || lastName.length === 0 || email.length === 0 || password.length === 0) {
       alert("Empty form");
       return;
     }
@@ -31,12 +26,7 @@ const Register = () => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      password: password,
-      phoneNumber: phoneNumber,
-      address: address,
-      city: city,
-      postalCode: postalCode,
-      country: country,
+      password: password
     };
 
     axios
@@ -44,7 +34,6 @@ const Register = () => {
       .then((response) => {
         let obj = response.data;
         history.push("/Login");
-        console.log(obj);
       })
       .catch((error) => {
         alert(error);

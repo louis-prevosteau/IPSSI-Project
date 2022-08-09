@@ -1,33 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AccountBar from "../common/AccountBar";
 import NavigationBar from "../common/NavigationBar";
 import Footer from "../common/Footer";
 
-import dummyImg from "../../../../src/assets/img/dummy_img.png";
+import axios from "axios";
 
-
-import {Card ,Button,Row,Col } from "react-bootstrap"; 
-import AdminProductCreation from "./AdminProductCreation";
+import {Card ,Button,Row } from "react-bootstrap"; 
 import SingleProduct from "./SingleProduct";
+
+import { useHistory } from "react-router-dom";
+
 
 
 const Shop = () => {
+  
+  const [product, setProduct] = useState([]);
+  
+  useEffect (() => {
+    axios
+    .get("http://127.0.0.1:3000/product/selectAll")
+    .then((response) => {
+      let obj = response.data;
+      setProduct(obj.model)
+    })
+    .catch((error) => {
+      alert(error);
+    });
+})
 
+let history = useHistory();
 
-  const [product, setProduct] = useState([
-    { id: 1, title: "titre prod", image: dummyImg.src, description: 'lorem ipsum', price: '10.99' , status: 'En vente' },
-    { id: 2, title: "titre prod", image: "..\assets\img\dummy_img.png", description: 'lorem ipsum', price: '10.99' , status: 'Retiré de la vente' },
-    { id: 3, title: "titre prod", image: "..\assets\img\dummy_img.png", description: 'lorem ipsum', price: '10.99' , status: 'En vente' },
-    { id: 4, title: "titre prod", image: "..\assets\img\dummy_img.png", description: 'lorem ipsum', price: '10.99' , status: 'En vente' },
-    { id: 5, title: "titre prod", image: "..\assets\img\dummy_img.png", description: 'lorem ipsum', price: '10.99' , status: 'Retiré de la vente' }
-]);
+const redirectToSingleProduct = () => {
+  history.push("/SingleProduct")
+}
 
     return (
       <div>
         <AccountBar />
-        <NavigationBar />
-
-        
+        <NavigationBar />  
 
         <div>
         
@@ -42,37 +52,29 @@ const Shop = () => {
           <div>
             <h3>Dans la Boutique !</h3>
 
-            {product && product.map(product =>     
-
-                              <Row xs={1} md={3} className="g-4">
-                                {Array.from({ length: 2 }).map((_, idx) => (
-                                  <Col>
-                                    <Card onClick={SingleProduct} className={'productCard'}>
-                                      <Card.Title>{product.title}</Card.Title>
-                                      <Card.Img variant="top" src={dummyImg} />
-                                      <Card.Body>
-                                      <Card.Text>
-                                          {product.price} €
-                                        </Card.Text>
-                                        <Card.Text>
-                                          {product.description}
-                                        </Card.Text>
-                                      <Button className={'globalButton'}variant="primary">Ajouter</Button>
-                                      </Card.Body>
-                                    </Card>
-                                  </Col>
-                                ))}
-                              </Row>
-              )}
-
+                <Row md={4} style={{display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around"}}>
+                  {Array.from(product && product).map((product, i) => (
+                      <Card onClick={redirectToSingleProduct} className={'productCard'}>
+                        <Card.Title>{product.title}</Card.Title>
+                        <Card.Img variant="top" src={product.picture} />
+                        <Card.Body>
+                        <Card.Text className={'product-price'}>
+                            {product.price} €
+                          </Card.Text>
+                          <Card.Text>
+                            {product.description}
+                          </Card.Text>
+                        <Button className={'globalButton'}variant="primary">Ajouter</Button>
+                        </Card.Body>
+                      </Card>
+                  ))}
+              </Row>
           </div>
-
         </div>
-
         <Footer />
       </div>
     );
-  }
+}
 
 export default Shop;
 

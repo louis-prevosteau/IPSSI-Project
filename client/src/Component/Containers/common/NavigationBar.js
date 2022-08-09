@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import signOutAlt from "@iconify/icons-fa-solid/sign-out-alt";
 
@@ -12,9 +11,13 @@ import logo from "../../../../src/assets/img/logo.png";
 import { FaUserAlt } from 'react-icons/fa';
 
 
+
 import styles from "../../../css/nav.module.css";
 
+
+
 const LogoutIcon = <Icon icon={signOutAlt} />;
+
 
 
 export default function NavigationBar() {
@@ -36,6 +39,9 @@ export default function NavigationBar() {
                 <Nav className={styles.nav}>
                   <NavLink className={styles.navLink} to="Home"> 
                     Accueil
+                  </NavLink>
+                  <NavLink className={styles.navLink} to="AdminDashboard"> 
+                    Tableau de bord
                   </NavLink>
                   <NavLink className={styles.navLink} to="AdminCatalogue">
                     Catalogue
@@ -80,7 +86,7 @@ export default function NavigationBar() {
     <>
      {content}
 
-      <div className={styles.header}>
+      <div className = {styles.header}>
         <h1>SPAZIOGAMES</h1>
         <h2>Jeux de société & Puzzles</h2>
       </div>

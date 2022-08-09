@@ -16,8 +16,13 @@ const SingleProduct = () => {
       setCount(count);
     }
     const decrementCount = () => {
-      count = count - 1;
-      setCount(count);
+        if (count > 0) {
+            count = count - 1;
+            setCount(count);
+        } else {
+            setCount(count);
+        }
+      
     }
 
     const userComments = [
@@ -46,19 +51,19 @@ const SingleProduct = () => {
             <h3 className={"font-link"}>Single Product</h3>
         </div>
 
-        <div style={{display: "flex", justifyContent:"space-evenly"}}>
-            <div>
+        <div style={{display: "flex", width:"85%",justifyContent:"center"}}>
+            <div style={{}}>
                 <img src={dummyImg} alt="" width="150%"/>
             </div>
-            <div style={{display: "flex", flexDirection: "column"}}>
+            <div style={{display: "flex", flexDirection: "column", width: "50%"}}>
                 <h3>{product.title}</h3>
-                <h4>{product.price}</h4>
-                <p>{product.description}</p>
+                <h4 className={'product-price'}>{product.price} €</h4>
+                <p style={{width:"50%", margin:"auto"}}>{product.description}</p>
                 
-                <div>
-                    <button className={"globalButton"} onClick={decrementCount}>-</button>
-                    <div>{count}</div>
-                    <button className={"globalButton"} onClick={incrementCount}>+</button>
+                <div style={{display: "flex", alignItems:"center",justifyContent:"right"}}>
+                    <button className={"cart-buttons"} onClick={decrementCount}>-</button>
+                    <div className={"cart-count-field"}>{count}</div>
+                    <button className={"cart-buttons"} onClick={incrementCount}>+</button>
                     <button className={"globalButton"} onClick={""}>Ajouter</button>
                 </div>  
             </div>

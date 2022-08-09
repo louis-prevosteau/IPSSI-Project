@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import AccountBar from "../common/AccountBar";
 import NavigationBar from "../common/NavigationBar";
@@ -19,6 +19,13 @@ const AdminCatalogue = () => {
         { id: 4, image: 'img', creationDate: '12/07/2022', reference: 'T130QD3', category: 'jeux de société', price: '10.99' , status: 'En vente' },
         { id: 5, image: 'img', creationDate: '12/07/2022', reference: 'T130QD4', category: 'jeux de dés', price: '10.99' , status: 'Retiré de la vente' }
     ]);
+
+
+    let history = useHistory();
+
+    const redirectToProductUpdate = () => {
+        history.push("/AddProduct")
+      }
 
     return (
       <div>
@@ -53,7 +60,7 @@ const AdminCatalogue = () => {
                     </thead>
                     <tbody style={{backgroundColor: "white", height: "100vh"}}>
                         {product && product.map(product =>
-                            <tr key={product.id} className={'adminCataloguetr'} title='Modifier le produit'>
+                            <tr key={product.id} className={'adminCataloguetr'} title='Modifier le produit' onClick={redirectToProductUpdate}>
                                 <td style={{width: "20%"}}><img src={dummyImg} width={"50%"} alt=""></img></td>
                                 <td>{product.creationDate}</td>
                                 <td>{product.reference}</td>

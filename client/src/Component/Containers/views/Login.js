@@ -8,36 +8,54 @@ import Footer from "../common/Footer";
 import axios from "axios";
 import LoginRegisterOptions from "../common/LoginRegisterOptions";
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [lostpassword, setLostpassword] = useState(false);
 
-  let history = useHistory();
+  const [isActive, setActive] = useState("false");
 
+  const [loading, setLoading] = useState(false);
+
+
+  let history = useHistory();
+  
+  
+ 
   const login = () => {
-    if (email.length == 0 || password.length == 0) {
+    if (email.length === 0 || password.length === 0) {
       alert("Empty form");
       return;
     }
+
 
     let data = {
       email: email,
       password: password,
     };
 
+    setLoading(true);
+
     axios
       .post("http://127.0.0.1:3000/user/login", data)
+
       .then((response) => {
         let obj = response.data;
-
+       
         localStorage.setItem("firstName", obj.user.firstName);
         history.push("/");
-        /*console.log(obj.user.firstName);
-        console.log(obj);*/
+        setLoading(false);
+
       })
       .catch((error) => {
-        alert(error);
+        setLoading(false);
+        if (error.response.status === 401) {      
+          setActive(true);
+          setTimeout(() => {
+            setActive(false);
+          }, 3000);
+        }
       });
   };
 
@@ -51,16 +69,12 @@ const Login = () => {
     setLostpassword(false);
   };
 
-  
-
   if (lostpassword) {
     content = <div>
                 <h3>Retrouvez votre mot de passe</h3>
-                <form className={"globalForm"}
-                onSubmit={(e) => {
-                e.preventDefault();
-                }}
-              >
+                <form className={"globalForm"} onSubmit={(e) => {
+                  e.preventDefault();  
+                }}>
                 <button className={"globalButton"} onClick={haveNotLostPw}>Retour</button>
                   <input className={"formfield"}
                     type="email"
@@ -76,13 +90,11 @@ const Login = () => {
     
   } else {
     content = <div>
-                  <form className={"globalForm"}
-                  onSubmit={(e) => {
+                <form id="form1" className={"globalForm"} onSubmit={(e) => {
                   e.preventDefault();
-                  }}
-  >
+                }}>
                   <LoginRegisterOptions />
-                  <input className={"formfield"}
+                  <input className={`${"formfield"} ${isActive ? "field-red-alert" : ""}`}
                     type="email"
                     placeholder="Email"
                     value={email}
@@ -90,7 +102,7 @@ const Login = () => {
                       setEmail(e.target.value);
                     }}
                   ></input>
-                  <input className={"formfield"}
+                  <input className={`${"formfield"} ${isActive ? "field-red-alert" : ""}`}
                     type="password"
                     placeholder="Password"
                     value={password}
@@ -98,24 +110,29 @@ const Login = () => {
                       setPassword(e.target.value);
                     }}
                   ></input>
+                  <button type="submit"  value="Submit" form="form1" className={"globalButton"} onClick={login}>Connexion</button>
                   <button className={"lostPasswordButton"} onClick={haveLostPw}>Mot de passe perdu ?</button>
 
-                  <button className={"globalButton"} onClick={login}>Connexion</button>
+                  
                 </form>
-                </div>;
+              </div>;
   }
   
 
-
-
   return (
     <div>
-      <AccountBar />
-      <NavigationBar />
-      {content}
-      <Footer />
+       {loading ? (
+          <div className="loader-container">
+            <div className="spinner"></div>
+          </div>) : <div>
+                      <AccountBar />
+                      <NavigationBar />
+                      {content}
+                      <Footer />
+                    </div>}
     </div>
   );
 };
 
 export default Login;
+

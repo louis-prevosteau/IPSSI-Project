@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Countdown from "../common/Countdown";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -49,6 +50,8 @@ function Home() {
         </div>
 
         <Link to={"/Shop"} className={"globalButton"} style={{padding: "1%"}}>Aller à la boutique ! <BsFillBasket2Fill /></Link>
+
+        <Countdown />
 
         <Footer />
       </div>

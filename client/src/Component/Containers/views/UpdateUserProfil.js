@@ -39,7 +39,7 @@ const UpdateUserProfil = () => {
 
 
   const updateProfil = () => {
-    if (pseudo.length == 0 || firstName.length == 0 || lastName.length == 0 || email.length == 0) {
+    if (pseudo.length === 0 || firstName.length === 0 || lastName.length === 0 || email.length === 0) {
         alert("Vous n'avez pas rempli tous les champs !");
         return;
       }
@@ -60,13 +60,13 @@ const UpdateUserProfil = () => {
         history.push("/");
       })
       .catch((error) => {
-        alert(error);
+        console.log(error);
       });
   };
 
 
   const updatePassword = () => {
-    if (password.length == 0 || confirmPassword.length == 0) {
+    if (password.length === 0 || confirmPassword.length === 0) {
         
         alert("Vous n'avez pas rempli tous les champs !");
         return;

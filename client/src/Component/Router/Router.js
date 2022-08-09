@@ -10,8 +10,21 @@ import AdminCatalogue from "../Containers/views/AdminCatalogue";
 import AdminProductCreation from "../Containers/views/AdminProductCreation";
 import AdminCategoryCreation from "../Containers/views/AdminCategoryCreation";
 import SingleProduct from "../Containers/views/SingleProduct";
+import AdminDashboard from "../Containers/views/AdminDashboard";
 
 const Router = () => {
+
+
+  const SecuredRoute = ({ ...props }) => (
+    console.log(props.path),
+    <Route path={props.path} render={(data) => (
+      console.log(data),
+      localStorage.getItem('accessToken')
+        ? <props.render {...data} />
+        : <Redirect to='/login' />
+    )} />
+  )
+
   return (
     <BrowserRouter>
       <Route exact path="/">
@@ -25,6 +38,7 @@ const Router = () => {
       <Route path="/User" component={UserProfil} />
       <Route path="/UpdateProfil" component={UpdateUserProfil} />
       <Route path="/AdminCatalogue" component={AdminCatalogue} />
+      <Route path="/AdminDashboard" component={AdminDashboard} />
       <Route path="/AddProduct" component={AdminProductCreation} />
       <Route path="/AddCategory" component={AdminCategoryCreation} />
       <Route path="/SingleProduct" component={SingleProduct} />

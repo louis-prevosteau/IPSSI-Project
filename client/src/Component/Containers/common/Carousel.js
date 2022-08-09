@@ -5,6 +5,8 @@ import { Carousel } from 'react-responsive-carousel';
 
 import homepageBanner1 from "../../../../src/assets/img/homepageBanner1.jpg";
 import homepageBanner2 from "../../../../src/assets/img/homepageBanner2.jpg";
+import homepageBanner3 from "../../../../src/assets/img/homepageBanner3.jpg";
+
 
 class DemoCarousel extends Component {
     render() {
@@ -15,6 +17,9 @@ class DemoCarousel extends Component {
                 </div>
                 <div>
                     <img src={homepageBanner2} />
+                </div>
+                <div>
+                    <img src={homepageBanner3} />
                 </div>
             </Carousel>
         );

@@ -23,25 +23,27 @@ const AdminCategoryCreation = () => {
 
   let history = useHistory();
 
+  const redirectToCatalogue = () => {
+    history.push("/AdminCatalogue")
+  }
+
   const addCategory = () => {
-    if (productCategory.length == 0) {
-      alert("Empty form");
+    if (productCategory.length === 0 || categoryDescription.length === 0) {
+      alert("Vous n'avez pas rempli tous les champs !");
       return;
     }
 
     let data = {
       productCategory: productCategory,
+      categoryDescription: categoryDescription
     };
 
     axios
-      .post("http://127.0.0.1:3000/user/login", data)
+      .put("http://127.0.0.1:3000/category/insert", data)
       .then((response) => {
         let obj = response.data;
 
-        localStorage.setItem("firstName", obj.user.firstName);
-        history.push("/");
-        /*console.log(obj.user.firstName);
-        console.log(obj);*/
+
       })
       .catch((error) => {
         alert(error);
@@ -75,8 +77,8 @@ const AdminCategoryCreation = () => {
                     }}></textarea>
                     
                     <div style={{display: "flex", justifyContent: "space-evenly", width: "50vw"}}>
-                        <button className={"globalGreyButton"} onClick={""}>Annuler</button>
-                        <button className={"globalRedButton"} onClick={""}>Ajouter</button>
+                        <button className={"globalGreyButton"} onClick={redirectToCatalogue}>Annuler</button>
+                        <button className={"globalRedButton"} onClick={addCategory}>Ajouter</button>
                     </div>
                     
                 </form>
