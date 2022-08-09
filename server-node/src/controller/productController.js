@@ -1,5 +1,5 @@
-const productModel = require("../models/products"),
-      userModel = require("../models/users");
+const productModel = require("../models/products");
+const CategoryModel = require("../models/categories");
 const app = require("../../app");
 
 const path = require('path')
@@ -15,13 +15,28 @@ exports.test = (req, res, next) => {
 };
 
 exports.insertProduct = (req, res, next) => {
-    //if (user.accountType != "user") {
     const newProduct = new productModel();
     newProduct.name = req.body.name
     newProduct.description = req.body.description
     newProduct.price = req.body.price
+
+    const id_category = req.body.id_category;
+
+    const category = CategoryModel.findById(id_category)
+
+    if (category != null) {
+        newProduct.id_category = id_category
+    } else {
+        newProduct.id_category = ""
+        res.status(400).send({ 
+          message: "error, id_category not found" 
+        })
+    }
+
     if (req.file) {
         newProduct.picture = req.file.path
+    } else {
+        newProduct.picture = ""
     }
     newProduct.save();
     res.status(200).send({ 
