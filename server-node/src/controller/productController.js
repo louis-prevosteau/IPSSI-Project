@@ -14,7 +14,7 @@ exports.test = (req, res, next) => {
     });
 };
 
-exports.insertProduct = (req, res, next) => {
+exports.insertProduct = async (req, res, next) => {
     const newProduct = new productModel();
     newProduct.name = req.body.name
     newProduct.description = req.body.description
@@ -22,15 +22,15 @@ exports.insertProduct = (req, res, next) => {
 
     const id_category = req.body.id_category;
 
-    const category = CategoryModel.findById(id_category)
+    const categoryModel = await CategoryModel.findById(id_category)
 
-    if (category != null) {
-        newProduct.id_category = id_category
+    if (categoryModel != null) {
+      newProduct.id_category = id_category
     } else {
-        newProduct.id_category = ""
-        res.status(400).send({ 
-          message: "error, id_category not found" 
-        })
+      res.status(400).send({ 
+        message: "id_category not found" 
+      })
+      return
     }
 
     if (req.file) {
