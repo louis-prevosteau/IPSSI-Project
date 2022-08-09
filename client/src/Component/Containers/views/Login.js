@@ -44,6 +44,8 @@ const Login = () => {
         let obj = response.data;
        
         localStorage.setItem("firstName", obj.user.firstName);
+        localStorage.setItem("lastName", obj.user.lastName);
+        localStorage.setItem("email", obj.user.email);
         history.push("/");
         setLoading(false);
 

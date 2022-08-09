@@ -35,6 +35,8 @@ export default function AccountBar() {
 
   const loginAction = () => {
     localStorage.removeItem("firstName");
+    localStorage.removeItem("lastName");
+    localStorage.removeItem("email");
     window.location.reload(false);
   };
 

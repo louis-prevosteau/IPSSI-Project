@@ -14,15 +14,43 @@ import Form from 'react-bootstrap/Form';
 
 const AdminProductCreation = () => {
 
-  const [reference, setReference] = useState("");
   const [productTitle, setProductTitle] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
   const [productPicture, setProductPicture] = useState([]);
   const [productCategory, setProductCategory] = useState([]);
+  const [listCategory, setListCategory] = useState([]);
 
+  useEffect(() => {   
+    axios
+    .get(" http://127.0.0.1:3000/category/selectAll")
+    .then((response) => {
 
+      setListCategory(response.data.listOfCategories);
+      console.log(response.data)
+      console.log(response.data.listOfCategories[0].name);
+      console.log('alert' + listCategory)
+
+      listCategory.forEach(category => {
+        console.log(category)
+        for (const [key, value] of Object.entries(category)){
+        console.log( `hello ${key}: ${value}`
+        )};
+      });
+      
+    })
+    .catch((error) => {
+      alert(error);
+    });
+
+    
+  }, []);
+
+  
   const showCategories = () => {
+
+    
+   
     let categoryValues = ["jeux de société","jeux de rôle","jeux de dés"],
         MakeItem = function(X) {
             return <option>{X}</option>;
@@ -39,13 +67,12 @@ const AdminProductCreation = () => {
   }
 
   const addProduct = () => {
-    if (/*reference.length === 0 || */productTitle.length === 0 || productPrice.length === 0 || productDescription.length === 0 /*|| productCategory.length === 0*/) {
+    if (productTitle.length === 0 || productPrice.length === 0 || productDescription.length === 0 /*|| productPicture.length === 0 || productCategory.length === 0*/) {
       alert("Empty form");
       return;
     }
 
     let data = {
-      /*reference: reference,*/
       name: productTitle,
       price: productPrice,
       description: productDescription,
@@ -111,7 +138,7 @@ const AdminProductCreation = () => {
                       setProductDescription(e.target.value);
                     }}></textarea>
 
-                    {/*showCategories()*/}
+                    {showCategories()}
                     
                     <div style={{display: "flex", justifyContent: "space-evenly", width: "50vw"}}>
                         <button className={"globalGreyButton"} onClick={redirectToCatalogue}>Annuler</button>
