@@ -11,7 +11,8 @@ const {
     selectAllProducts,
     insertCommand,
     selectACommand,
-    selectAllCommands
+    selectAllCommands,
+    editACommand
 } = require('../controller/productController')
 const folderName = require('../middleware/multer')
 
@@ -25,6 +26,7 @@ router.delete('/:idProduct/delete', deleteAProduct);
 router.post('/insertCommand', insertCommand);
 router.get('/:idCommand/selectACommand', selectACommand);
 router.get('/selectAllCommands', selectAllCommands);
+router.put('/:idCommand/editACommand', editACommand);
 
 
 

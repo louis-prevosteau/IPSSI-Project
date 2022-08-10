@@ -209,29 +209,24 @@ exports.selectAllCommands = (req, res) => {
     });
 };
 
-exports.editAProduct = (req, res) => {
-  const idCommand = req.params.idCommand;
-  const state = req.body.state;
+exports.editACommand = (req, res) => {
+    const idCommand = req.params.idCommand;
 
-  commandModel
-  .findById(idCommand)
-  .then((comand) => {
-      if (req.file) {
-          unlinkAsync(model.picture)
-          return Object.assign(model, { name: productName, description: productDescription, productPrice: productPrice, picture: req.file.path });
-      }
-      return Object.assign(model, { name: productName, description: productDescription, productPrice: productPrice  });
-  })
-  .then((model) => {
-      return model.save();
-  })
-  .then((updatedModel) => {
-      res.status(200).send({ 
-          updatedModel: updatedModel,
-          message: "success" 
-      })
-  })
-  .catch((err) => {
-      res.send(err);
-  });
+    commandModel
+    .findById(idCommand)
+    .then((command) => {
+        return Object.assign(command, { state: req.body.state, amount: req.body.amount });
+    })
+    .then((model) => {
+        return model.save();
+    })
+    .then((updatedModel) => {
+        res.status(200).send({ 
+            updatedModel: updatedModel,
+            message: "success" 
+        })
+    })
+    .catch((err) => {
+        res.send(err);
+    });
 };
