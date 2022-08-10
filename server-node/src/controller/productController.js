@@ -208,3 +208,30 @@ exports.selectAllCommands = (req, res) => {
       res.send(err);
     });
 };
+
+exports.editAProduct = (req, res) => {
+  const idCommand = req.params.idCommand;
+  const state = req.body.state;
+
+  commandModel
+  .findById(idCommand)
+  .then((comand) => {
+      if (req.file) {
+          unlinkAsync(model.picture)
+          return Object.assign(model, { name: productName, description: productDescription, productPrice: productPrice, picture: req.file.path });
+      }
+      return Object.assign(model, { name: productName, description: productDescription, productPrice: productPrice  });
+  })
+  .then((model) => {
+      return model.save();
+  })
+  .then((updatedModel) => {
+      res.status(200).send({ 
+          updatedModel: updatedModel,
+          message: "success" 
+      })
+  })
+  .catch((err) => {
+      res.send(err);
+  });
+};
