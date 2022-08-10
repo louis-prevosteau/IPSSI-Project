@@ -1,5 +1,7 @@
 const productModel = require("../models/products");
+const commandModel = require("../models/commands");
 const CategoryModel = require("../models/categories");
+const UserModel = require("../models/users");
 const app = require("../../app");
 
 const path = require('path')
@@ -22,13 +24,19 @@ exports.insertProduct = async (req, res, next) => {
 
     const id_category = req.body.id_category;
 
+    if (id_category.length != 24) {
+      res.status(400).send({ 
+        message: "category not found" 
+      })
+      return
+    }
     const categoryModel = await CategoryModel.findById(id_category)
 
     if (categoryModel != null) {
       newProduct.id_category = id_category
     } else {
       res.status(400).send({ 
-        message: "id_category not found" 
+        message: "category not found" 
       })
       return
     }
@@ -136,5 +144,67 @@ exports.getProductsFiltered = (req, res, next) => {
         Message: "List products filtered successfully !",
         title: model,
       });
+    });
+};
+
+/**
+ * Commands requests
+ */
+exports.insertCommand = async (req, res, next) => {
+  const newCommand = new commandModel();
+  
+  newCommand.amount = req.body.amount
+
+  let user_id = req.body.userId
+  if (user_id.length != 24) {
+    res.status(400).send({ 
+      message: "user not found" 
+    })
+    return
+  }
+  const userModel = await UserModel.findById(user_id)
+
+  if (userModel != null) {
+      newCommand.userId = req.body.userId
+  } else {
+      res.status(400).send({ 
+        message: "user not found" 
+      })
+      return
+  }
+  newCommand.save();
+  res.status(200).send({ 
+      newCommand: newCommand,
+      message: "success" 
+  })
+};
+
+exports.selectACommand = (req, res, next) => {
+  const idCommand = req.params.idCommand;
+
+  commandModel
+    .findById(idCommand)
+    .then((command) => {
+      res.status(200).send({ 
+        command: command,
+        message: "success" 
+      })
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+exports.selectAllCommands = (req, res) => {
+  commandModel
+    .find()
+    .then((commands) => {
+      res.status(200).send({ 
+        listOfCommands: commands,
+        message: "success" 
+      })
+    })
+    .catch((err) => {
+      res.send(err);
     });
 };
