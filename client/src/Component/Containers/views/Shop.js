@@ -55,7 +55,7 @@ const redirectToSingleProduct = () => {
                 <Row md={4} style={{display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around"}}>
                   {Array.from(product && product).map((product, i) => (
                       <Card onClick={redirectToSingleProduct} className={'productCard'}>
-                        <Card.Title>{product.title}</Card.Title>
+                        <Card.Title>{product.name}</Card.Title>
                         <Card.Img variant="top" src={product.picture} />
                         <Card.Body>
                         <Card.Text className={'product-price'}>

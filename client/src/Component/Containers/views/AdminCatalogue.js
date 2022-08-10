@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+
 
 import AccountBar from "../common/AccountBar";
 import NavigationBar from "../common/NavigationBar";
@@ -12,15 +14,23 @@ import dummyImg from "../../../../src/assets/img/dummy_img.png";
 
 const AdminCatalogue = () => {
     
-    const [product, setProduct] = useState([
-        { id: 1, image: 'img', creationDate: '10/07/2022', reference: 'T130QD0', category: 'jeux de société', price: '10.99' , status: 'En vente' },
-        { id: 2, image: 'img', creationDate: '10/07/2022', reference: 'T130QD1', category: 'jeux de rôle', price: '10.99' , status: 'Retiré de la vente' },
-        { id: 3, image: 'img', creationDate: '11/07/2022', reference: 'T130QD2', category: 'jeux de rôle', price: '10.99' , status: 'En vente' },
-        { id: 4, image: 'img', creationDate: '12/07/2022', reference: 'T130QD3', category: 'jeux de société', price: '10.99' , status: 'En vente' },
-        { id: 5, image: 'img', creationDate: '12/07/2022', reference: 'T130QD4', category: 'jeux de dés', price: '10.99' , status: 'Retiré de la vente' }
-    ]);
+    const [product, setProduct] = useState([]);
 
 
+    const getData = () => {   
+        axios
+            .get("http://127.0.0.1:3000/product/selectAll")
+            .then((response) => {
+            console.log(response)
+            let obj = response.data.model;
+            setProduct(obj);
+        })
+    };
+
+      useEffect(() => getData(), [])
+    
+    
+        
     let history = useHistory();
 
     const redirectToProductUpdate = () => {
@@ -51,20 +61,20 @@ const AdminCatalogue = () => {
                     <thead>
                         <tr>
                             <th>Photo</th>
-                            <th>Date de création</th>
-                            <th>Référence</th>
+                            <th>Nom du produit</th>
+                            <th>Description du produit</th>
                             <th>Catégorie</th>
                             <th>Prix</th>
                             <th>Statut</th>
                         </tr>
                     </thead>
                     <tbody style={{backgroundColor: "white", height: "100vh"}}>
-                        {product && product.map(product =>
+                        {product.map(product =>
                             <tr key={product.id} className={'adminCataloguetr'} title='Modifier le produit' onClick={redirectToProductUpdate}>
-                                <td style={{width: "20%"}}><img src={dummyImg} width={"50%"} alt=""></img></td>
-                                <td>{product.creationDate}</td>
-                                <td>{product.reference}</td>
-                                <td>{product.category}</td>
+                                <td style={{width: "20%"}}>{product.picture}</td>
+                                <td>{product.name}</td>
+                                <td>{product.description}</td>
+                                <td>{product.id_category}</td>
                                 <td>{product.price} €</td>
                                 <td>{product.status}</td>                                 
                                 
