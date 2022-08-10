@@ -40,13 +40,13 @@ exports.insertProduct = async (req, res, next) => {
       })
       return
     }
-
+    
     if (req.file) {
         newProduct.picture = req.file.path
     } else {
         newProduct.picture = ""
     }
-    newProduct.save();
+    //newProduct.save();
     res.status(200).send({ 
         newProduct: newProduct,
         message: "success" 
