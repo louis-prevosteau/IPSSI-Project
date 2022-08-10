@@ -17,7 +17,7 @@ const AdminProductCreation = () => {
   const [productTitle, setProductTitle] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productDescription, setProductDescription] = useState("");
-  const [productPicture, setProductPicture] = useState([]);
+  const [productPicture, setProductPicture] = useState("");
   const [selectedProductCategory, setSelectedProductCategory] = useState("");
   const [categoriesId, setCategoriesId] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
@@ -40,6 +40,7 @@ const AdminProductCreation = () => {
           }
         }
       }
+      console.log(".")
       setCategoriesId(categoryValuesId)
     })
     .catch((error) => {
@@ -84,19 +85,26 @@ const AdminProductCreation = () => {
       return;
     }
 
-    console.log("category id:" + selectedCategoryId)
+    // Create an object of formData
+    const formData = new FormData();
+    
+    // Update the formData object
 
-    let data = {
-      name: productTitle,
-      price: productPrice,
-      description: productDescription,
-      id_category: selectedCategoryId
-      /*file: productPicture,
-      category: productCategory,*/
-    };
+    console.log(productPicture)
+    
+    formData.append(
+      "file",
+      productPicture,
+      productPicture.name
+    );
+    
+    formData.append("name", productTitle)
+    formData.append("price", productPrice)
+    formData.append("description", productDescription)
+    formData.append("id_category", selectedCategoryId)
 
     axios
-      .put("http://127.0.0.1:3000/product/insert", data)
+      .put("http://127.0.0.1:3000/product/insert", formData)
       .then((response) => {
         let obj = response.data;
         console.log(obj)
@@ -104,7 +112,8 @@ const AdminProductCreation = () => {
 
       })
       .catch((error) => {
-        alert(error);
+        console.log(error.response.data)
+        alert(error.response);
       });
   };
 
@@ -154,6 +163,11 @@ const AdminProductCreation = () => {
                     }}></textarea>
 
                     {showCategories()}
+
+                    <label for="file">Choisir l'image à upload</label>
+                    <input type="file" onChange={(e) => {
+                        setProductPicture(e.target.files[0]);
+                    }} /> 
                     
                     <div style={{display: "flex", justifyContent: "space-evenly", width: "50vw"}}>
                         <button className={"globalGreyButton"} onClick={redirectToCatalogue}>Annuler</button>
