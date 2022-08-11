@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
+
+
 import AccountBar from "../common/AccountBar";
 import NavigationBar from "../common/NavigationBar";
 import Footer from "../common/Footer";
@@ -21,6 +24,7 @@ const Shop = () => {
     .get("http://127.0.0.1:3000/product/selectAll")
     .then((response) => {
       let obj = response.data;
+      console.log(obj)
       setProduct(obj.model)
     })
     .catch((error) => {
@@ -30,9 +34,9 @@ const Shop = () => {
 
 let history = useHistory();
 
-const redirectToSingleProduct = () => {
-  history.push("/SingleProduct")
-}
+
+
+
 
     return (
       <div>
@@ -54,7 +58,8 @@ const redirectToSingleProduct = () => {
 
                 <Row md={4} style={{display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around"}}>
                   {Array.from(product && product).map((product, i) => (
-                      <Card onClick={redirectToSingleProduct} className={'productCard'}>
+                      <Card 
+                      className={'productCard'}>
                         <Card.Title>{product.name}</Card.Title>
                         <Card.Img variant="top" src={product.picture} />
                         <Card.Body>
@@ -64,7 +69,9 @@ const redirectToSingleProduct = () => {
                           <Card.Text>
                             {product.description}
                           </Card.Text>
-                        <Button className={'globalButton'}variant="primary">Ajouter</Button>
+                        <NavLink className={'globalButton'} to={`/product/${product._id}/select`}>
+                          Voir le produit
+                        </NavLink>
                         </Card.Body>
                       </Card>
                   ))}

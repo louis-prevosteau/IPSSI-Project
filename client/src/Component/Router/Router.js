@@ -30,18 +30,18 @@ const Router = () => {
       <Route exact path="/">
         <Redirect to="/Home" />
       </Route>
-      <Route path="/Home" component={Home} />
-      <Route path="/Shop" component={Shop} />
-      <Route path="/Cart" component={Cart} />
-      <Route path="/Login" component={Login} />
-      <Route path="/Register" component={Register} />
-      <Route path="/User" component={UserProfil} />
-      <Route path="/UpdateProfil" component={UpdateUserProfil} />
-      <Route path="/AdminCatalogue" component={AdminCatalogue} />
-      <Route path="/AdminDashboard" component={AdminDashboard} />
-      <Route path="/AddProduct" component={AdminProductCreation} />
-      <Route path="/AddCategory" component={AdminCategoryCreation} />
-      <Route path="/SingleProduct" component={SingleProduct} />
+      <Route path="*/Home" component={Home} />
+      <Route path="*/Shop" component={Shop} />
+      <Route path="*/Cart" component={Cart} />
+      <Route path="*/Login" component={Login} />
+      <Route path="*/Register" component={Register} />
+      <Route path="*/User" component={UserProfil} />
+      <Route path="*/UpdateProfil" component={UpdateUserProfil} />
+      <Route path="*/AdminCatalogue" component={AdminCatalogue} />
+      <Route path="*/AdminDashboard" component={AdminDashboard} />
+      <Route path="*/AddProduct" component={AdminProductCreation} />
+      <Route path="*/AddCategory" component={AdminCategoryCreation} />
+      <Route path="/product/:idProduct/select" component={SingleProduct} />
 
     </BrowserRouter>
   );

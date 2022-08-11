@@ -10,7 +10,7 @@ import logo from "../../../../src/assets/img/logo.png";
 
 import { FaUserAlt } from 'react-icons/fa';
 
-
+import shoppingCart from "../views/SingleProduct";
 
 import styles from "../../../css/nav.module.css";
 
@@ -72,7 +72,7 @@ export default function NavigationBar() {
                     Boutique
                   </NavLink>
                   <NavLink className={styles.navLink} to="Cart">
-                    Panier
+                    Panier ({shoppingCart.length})
                   </NavLink>
                   <NavLink className={styles.navLink} to="User">
                     <FaUserAlt style = {{marginRight: "10px"}}/>Mon compte

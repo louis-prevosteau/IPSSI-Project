@@ -34,7 +34,7 @@ const AdminProductCreation = () => {
       console.log(".")
       for (const category in listCategory) {
         for (const [key, value] of Object.entries(listCategory[category])){
-          if (key == "_id") {
+          if (key === "_id") {
             console.log(response.data)
             categoryValuesId.push(value)
           }

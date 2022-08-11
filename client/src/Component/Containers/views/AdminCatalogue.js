@@ -71,7 +71,7 @@ const AdminCatalogue = () => {
                     <tbody style={{backgroundColor: "white", height: "100vh"}}>
                         {product.map(product =>
                             <tr key={product.id} className={'adminCataloguetr'} title='Modifier le produit' onClick={redirectToProductUpdate}>
-                                <td style={{width: "20%"}}>{product.picture}</td>
+                                <td style={{width: "20%"}}><img src="C:\\Users\\chris\\SpazioGame\\IPSSI-Project\\server-node\\uploads\\file-1660202654987.png"/></td>
                                 <td>{product.name}</td>
                                 <td>{product.description}</td>
                                 <td>{product.id_category}</td>

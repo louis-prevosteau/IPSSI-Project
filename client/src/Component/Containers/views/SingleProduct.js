@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
+
+import axios from "axios";
 import AccountBar from "../common/AccountBar";
 import NavigationBar from "../common/NavigationBar";
 import Footer from "../common/Footer";
 
 import dummyImg from "../../../../src/assets/img/dummy_img.png";
+import Cart from "../common/Cart";
 
 
+const cartFromLocalStorage = JSON.parse(localStorage.getItem('shoppingCart')) 
 
 const SingleProduct = () => {
 
+    const [singleProduct, setSingleProduct] = useState([]);
     let [count, setCount] = useState(0);
+
 
     const incrementCount = () => {
       count = count + 1;
@@ -21,24 +28,42 @@ const SingleProduct = () => {
             setCount(count);
         } else {
             setCount(count);
-        }
-      
+        }   
     }
 
-    const userComments = [
-        { id: 1, comment: 'coucou', publishDate: '10/07/2022', author: 'Lucas Chen'},
-        { id: 2, comment: 'hello', publishDate: '11/07/2022', author: 'Christophe Lannou'},
-        { id: 3, comment: 'salut', publishDate: '12/07/2022', author: 'Lucas Chen'},
-    ];
 
-    const product = {
-        id: 1, 
-        title: "titre prod", 
-        image: dummyImg.src, 
-        description: "Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum.", 
-        price: '10.99', 
-        status: 'En vente'
+
+    let location = useLocation();
+    const { idProduct: id } = useParams();
+
+
+  
+    useEffect(() => {
+      console.log("id", id);
+      const productId = location.state?.productId || id;
+      getProduct(productId);
+    }, []);
+  
+    const getProduct = (id) => {
+
+        axios
+        .get("http://127.0.0.1:3000/product/" + id + "/select")
+        .then((response) => {
+          let obj = response.data.model;
+          console.log(obj);
+          setSingleProduct(obj);
+        })
+        .catch((error) => {
+          alert(error);
+        });
     };
+
+    // const userComments = [
+    //     { id: 1, comment: 'coucou', publishDate: '10/07/2022', author: 'Lucas Chen'},
+    //     { id: 2, comment: 'hello', publishDate: '11/07/2022', author: 'Christophe Lannou'},
+    //     { id: 3, comment: 'salut', publishDate: '12/07/2022', author: 'Lucas Chen'},
+    // ];
+
 
     return (
       <div>
@@ -53,12 +78,12 @@ const SingleProduct = () => {
 
         <div style={{display: "flex", width:"85%",justifyContent:"center"}}>
             <div style={{}}>
-                <img src={dummyImg} alt="" width="150%"/>
+                <img src={singleProduct.picture} alt="" width="150%"/>
             </div>
             <div style={{display: "flex", flexDirection: "column", width: "50%"}}>
-                <h3>{product.title}</h3>
-                <h4 className={'product-price'}>{product.price} €</h4>
-                <p style={{width:"50%", margin:"auto"}}>{product.description}</p>
+                <h3>{singleProduct.name}</h3>
+                <h4 className={'product-price'}>{singleProduct.price} €</h4>
+                <p style={{width:"50%", margin:"auto"}}>{singleProduct.description}</p>
                 
                 <div style={{display: "flex", alignItems:"center",justifyContent:"right"}}>
                     <button className={"cart-buttons"} onClick={decrementCount}>-</button>
@@ -69,7 +94,7 @@ const SingleProduct = () => {
             </div>
         </div>
 
-        <div>
+        {/* <div>
             <h3 className={"productCounter"}>Commentaires</h3>
             
             <table className="table table-striped table-bordered" style={{margin: "auto",width: "75%", fontFamily: "'BoogalooRegular', cursive"}}>
@@ -93,7 +118,7 @@ const SingleProduct = () => {
                         )}
                     </tbody>
                 </table>
-        </div>
+        </div> */}
 
         <Footer />
       </div>
