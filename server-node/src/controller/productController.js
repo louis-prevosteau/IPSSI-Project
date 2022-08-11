@@ -46,7 +46,7 @@ exports.insertProduct = async (req, res, next) => {
     } else {
         newProduct.picture = ""
     }
-    //newProduct.save();
+    newProduct.save();
     res.status(200).send({ 
         newProduct: newProduct,
         message: "success" 
