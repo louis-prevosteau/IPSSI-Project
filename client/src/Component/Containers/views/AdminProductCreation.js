@@ -25,30 +25,27 @@ const AdminProductCreation = () => {
 
   useEffect(() => {   
     axios
-    .get(" http://127.0.0.1:3000/category/selectAll")
+    .get("http://192.168.90.76:3000/category/selectAll")
     .then((response) => {
 
       setListCategory(response.data.listOfCategories);
 
       let categoryValuesId = []
-      console.log(".")
       for (const category in listCategory) {
         for (const [key, value] of Object.entries(listCategory[category])){
           if (key === "_id") {
-            console.log(response.data)
             categoryValuesId.push(value)
           }
         }
       }
-      console.log(".")
       setCategoriesId(categoryValuesId)
     })
     .catch((error) => {
       alert(error);
     });
 
-    
-  }, []);
+  }, [listCategory]);
+
   
   const showCategories = () => {
     let categoryValues = []
@@ -74,9 +71,7 @@ const AdminProductCreation = () => {
   let history = useHistory();
 
   const redirectToCatalogue = () => {
-    history.push(<Popup position="right center">
-                    <div>Popup content here !!</div>
-                </Popup>)
+    history.push("/AdminCatalogue")
   }
 
   const addProduct = () => {
@@ -104,7 +99,7 @@ const AdminProductCreation = () => {
     formData.append("id_category", selectedCategoryId)
 
     axios
-      .put("http://127.0.0.1:3000/product/insert", formData)
+      .put("http://192.168.90.76:3000/product/insert", formData)
       .then((response) => {
         let obj = response.data;
         console.log(obj)

@@ -47,7 +47,7 @@ const SingleProduct = () => {
     const getProduct = (id) => {
 
         axios
-        .get("http://127.0.0.1:3000/product/" + id + "/select")
+        .get("http://192.168.90.76:3000/product/" + id + "/select")
         .then((response) => {
           let obj = response.data.model;
           console.log(obj);
@@ -72,9 +72,7 @@ const SingleProduct = () => {
 
         
 
-        <div>
-            <h3 className={"font-link"}>Single Product</h3>
-        </div>
+        
 
         <div style={{display: "flex", width:"85%",justifyContent:"center"}}>
             <div style={{}}>

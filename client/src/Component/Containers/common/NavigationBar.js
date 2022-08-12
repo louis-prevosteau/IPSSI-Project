@@ -26,7 +26,15 @@ export default function NavigationBar() {
 
   let content = "";
 
-  let admin = true;
+  let admin = false
+
+  // const isAdmin = localStorage.getItem('accountType');
+  // if (isAdmin === "user") {
+  //   admin = false;
+  // } else {
+  //   admin = true;
+  // }
+
 
   if (admin) {
 

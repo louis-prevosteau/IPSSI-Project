@@ -38,7 +38,7 @@ const Login = () => {
     setLoading(true);
 
     axios
-      .post("http://127.0.0.1:3000/user/login", data)
+      .post("http://192.168.90.76:3000/user/login", data)
 
       .then((response) => {
         let obj = response.data;
@@ -46,6 +46,7 @@ const Login = () => {
         localStorage.setItem("firstName", obj.user.firstName);
         localStorage.setItem("lastName", obj.user.lastName);
         localStorage.setItem("email", obj.user.email);
+        localStorage.setItem("accountType", obj.user.accountType);
         history.push("/");
         setLoading(false);
 

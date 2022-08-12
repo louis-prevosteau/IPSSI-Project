@@ -11,6 +11,7 @@ import AdminProductCreation from "../Containers/views/AdminProductCreation";
 import AdminCategoryCreation from "../Containers/views/AdminCategoryCreation";
 import SingleProduct from "../Containers/views/SingleProduct";
 import AdminDashboard from "../Containers/views/AdminDashboard";
+import AdminDeleteCategory from "../Containers/views/AdminDeleteCategory";
 
 const Router = () => {
 
@@ -41,6 +42,7 @@ const Router = () => {
       <Route path="*/AdminDashboard" component={AdminDashboard} />
       <Route path="*/AddProduct" component={AdminProductCreation} />
       <Route path="*/AddCategory" component={AdminCategoryCreation} />
+      <Route path="*/DeleteCategory" component={AdminDeleteCategory} />
       <Route path="/product/:idProduct/select" component={SingleProduct} />
 
     </BrowserRouter>

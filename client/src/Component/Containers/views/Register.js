@@ -30,7 +30,7 @@ const Register = () => {
     };
 
     axios
-      .post("http://127.0.0.1:3000/user/register", data)
+      .post("http://192.168.90.76:3000/user/register", data)
       .then((response) => {
         let obj = response.data;
         history.push("/Login");

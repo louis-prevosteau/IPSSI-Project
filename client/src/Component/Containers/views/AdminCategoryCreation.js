@@ -12,13 +12,13 @@ const AdminCategoryCreation = () => {
   const [categoryDescription, setCategoryDescription] = useState([]);
 
 
-  const showCategories = () => {
-    let categoryValues = ["jeux de société","jeux de rôle","jeux de dés"],
-        MakeItem = function(X) {
-            return <option>{X}</option>;
-        };
-    return <select className={"formfield"}>{categoryValues.map(MakeItem)}</select>;
-}
+//   const showCategories = () => {
+//     let categoryValues = ["jeux de société","jeux de rôle","jeux de dés"],
+//         MakeItem = function(X) {
+//             return <option>{X}</option>;
+//         };
+//     return <select className={"formfield"}>{categoryValues.map(MakeItem)}</select>;
+// }
 
 
   let history = useHistory();
@@ -33,15 +33,20 @@ const AdminCategoryCreation = () => {
       return;
     }
 
+    
+
+
     let data = {
-      productCategory: productCategory,
-      categoryDescription: categoryDescription
+      name: productCategory,
+      description: categoryDescription
     };
 
     axios
-      .put("http://127.0.0.1:3000/category/insert", data)
+      .post("http://192.168.90.76:3000/category/insert", data)
       .then((response) => {
         let obj = response.data;
+        console.log(obj)
+        history.push("/AdminCatalogue");
 
 
       })
@@ -56,7 +61,7 @@ const AdminCategoryCreation = () => {
       <NavigationBar />
       <div><h3>Créer une catégorie</h3>
 
-                {showCategories()}
+                {/* {showCategories()} */}
 
                   <form className={"globalForm"}
                   onSubmit={(e) => {

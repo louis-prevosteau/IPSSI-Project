@@ -25,8 +25,17 @@ const UserProfil = () => {
         </div>
         
         <Link title='Modifier les informations de votre profil' to= "/UpdateProfil" className={"globalButton"} style={{borderRadius: "90px", width:"75px", height:"75px", float:"right", marginTop: "-20%"}}><FaPen style= {{fontSize:"2em", marginLeft: "1vw", marginTop: "1vw"}}/></Link>
-      </div>  
-    
+      </div> 
+
+      <h3>Vos commandes</h3>
+
+      <div style={{display: "block", margin: "auto", width: "30%", textAlign: "left", backgroundColor: "white", color: "#222", fontStyle:"italic",  padding: "3vw", borderRadius: "15px"}}>
+        <div>
+          <p>Nom : {localStorage.getItem("firstName")}</p>
+          <p>Prénom : {localStorage.getItem("lastName")}</p>
+          <p>Email : {localStorage.getItem("email")}</p>
+        </div> 
+    </div>
           
       <Footer />
     </div>

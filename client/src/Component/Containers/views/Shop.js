@@ -21,7 +21,7 @@ const Shop = () => {
   
   useEffect (() => {
     axios
-    .get("http://127.0.0.1:3000/product/selectAll")
+    .get("http://192.168.90.76:3000/product/selectAll")
     .then((response) => {
       let obj = response.data;
       console.log(obj)

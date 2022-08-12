@@ -9,7 +9,6 @@ import NavigationBar from "../common/NavigationBar";
 import Footer from "../common/Footer";
 
 const UpdateUserProfil = () => {
-    const [pseudo, setPseudo] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -39,20 +38,19 @@ const UpdateUserProfil = () => {
 
 
   const updateProfil = () => {
-    if (pseudo.length === 0 || firstName.length === 0 || lastName.length === 0 || email.length === 0) {
+    if (firstName.length === 0 || lastName.length === 0 || email.length === 0) {
         alert("Vous n'avez pas rempli tous les champs !");
         return;
       }
 
     let data = {
-        pseudo: pseudo,
         firstName: firstName,
         lastName: lastName,
         email: email,
     };
 
     axios
-      .post("http://127.0.0.1:3000/user/login", data)
+      .post("http://192.168.90.76:3000/user/updateProfile", data)
       .then((response) => {
         let obj = response.data;
 
@@ -78,7 +76,7 @@ const UpdateUserProfil = () => {
     };
 
     axios
-      .post("http://127.0.0.1:3000/user/login", data)
+      .post("http://192.168.90.76:3000/user/login", data)
       .then((response) => {
         let obj = response.data;
 
@@ -103,14 +101,6 @@ const UpdateUserProfil = () => {
                   e.preventDefault();
                   }}
   >
-            <input className={"formfield"}
-                type="text"
-                placeholder="Pseudo"
-                value={pseudo}
-                onChange={(e) => {
-                    setPseudo(e.target.value);
-                }}
-            ></input>
 
             <input className={"formfield"}
             type="email"
